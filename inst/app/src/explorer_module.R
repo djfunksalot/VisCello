@@ -1232,7 +1232,7 @@ explorer_server <- function(input, output, session, sclist, useid, cmeta = NULL)
         dropdownButton2(inputId=ns("bp_plot_configure"),
                         fluidRow(
                             column(6, numericInput(ns("bp_downsample"), "Downsample #", min=2, max = 10000, value=500)),
-                            column(6, selectInput(ns("bp_plot_type"), "Plot Type", choices = list("Box plot" = "box", "Violin plot" = "violin", "Plot points" = "points")))
+			    column(6, selectInput(ns("bp_plot_type"), "Plot Type", choices = list("Violin plot" = "violin", "Box plot" = "box", "Plot points" = "points")))
                         ),
                         fluidRow(
                             column(6, numericInput(ns("bp_marker_size"), "Point Size", min = 0.1, value = 1, step = 0.1)),

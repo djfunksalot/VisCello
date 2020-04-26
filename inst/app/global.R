@@ -1,7 +1,7 @@
-
 # For deploy, set F to T, replace inst/app/data/config.yml, clist.rds and eset.rds. Follow https://github.com/qinzhu/VisCello to deploy.
-viscello_DEPLOY = F
+viscello_DEPLOY = T
 NEG_VAL=T
+
 
 lapply(list.files("src/", pattern = "\\.(r|R)$", recursive = F, full.names = TRUE), function(x){source(file = x)})
 
@@ -39,11 +39,12 @@ pmeta_attr <- data.frame(meta_id = meta_order, meta_name = names(meta_order), st
 pData(eset) <- pData(eset)[,which(colnames(pData(eset)) %in% pmeta_attr$meta_id), drop=F]
 
 pmeta_attr$is_numeric <- sapply(as.character(pmeta_attr$meta_id), function(x) {
-    if(x %in% colnames(pData(eset))) {
+    if (x %in% c("gene.expr","nGene","nUMI")) {
+        T
+    } else if(x %in% colnames(pData(eset))) {
         is.numeric(pData(eset)[[x]])
     } else if(x %in% colnames(clist[[1]]@pmeta)) {
         is.numeric(clist[[1]]@pmeta[[x]])
-    } else if(x == "gene.expr") {
         T
     } else {
         NA
